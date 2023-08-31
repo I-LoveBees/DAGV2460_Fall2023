@@ -70,12 +70,12 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.D)) //right
         {
-            moveVelocity = speed;
+            moveVelocity = -speed;
         }
         
         if(Input.GetKey(KeyCode.A)) //left
         {
-            moveVelocity = -speed;
+            moveVelocity = speed;
         }
 
         //moving player left and right 
