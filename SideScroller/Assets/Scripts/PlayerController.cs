@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private bool isGrounded;
-    private GameManager gameManager; //ref the other script
 
     [Header ("PlayerHealth")]
     public int curHP;
@@ -32,12 +31,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        gameManager = FindObjectOfType<GameManager>();
-        if (gameManager == null)
-        {
-            Debug.LogError("GameManager script not found in the scene.");
-        }
     }
 
     private void Update()
@@ -68,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if(curHP <= 0)
         {
-            gameManager.Death();
+            GameManager.instance.Death();
         }
     }
 }
