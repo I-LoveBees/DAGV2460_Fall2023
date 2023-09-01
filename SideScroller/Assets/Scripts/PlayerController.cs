@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //some written by ai some by me
     public float moveSpeed = 5f;        // Player movement speed
     public float jumpForce = 7f;        // Force applied when jumping
+    public float gravity = -10f;
     public float groundCheckDistance = 0.2f; // Distance to check if the player is grounded
     public LayerMask groundLayer;       // Layer mask for the ground
 
     private Rigidbody rb;
     private bool isGrounded;
+    private GameManager gameManager; //ref the other script
 
     [Header ("PlayerHealth")]
     public int curHP;
@@ -30,6 +32,12 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager script not found in the scene.");
+        }
     }
 
     private void Update()
@@ -46,7 +54,8 @@ public class PlayerController : MonoBehaviour
         // Jumping
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+           rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
         }
     }
 
@@ -59,14 +68,7 @@ public class PlayerController : MonoBehaviour
 
         if(curHP <= 0)
         {
-            Death();
+            gameManager.Death();
         }
     }
-
-    public void Death()
-    {
-        Debug.Log("You Died");
-      //  SceneManager.LoadScene(3); //should go to the death screen
-    }
-
 }

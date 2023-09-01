@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    //me
    [Header("Enemy Info")]
     public int curHP; //current HP
     public int maxHP;

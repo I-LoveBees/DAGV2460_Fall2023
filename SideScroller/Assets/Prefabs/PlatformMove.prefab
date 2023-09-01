@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2476590692810980239}
   - component: {fileID: 9218527152515452829}
   - component: {fileID: 2072633064702197292}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlatformMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,5 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc2d0cdf0f87904aa931b7cc1f2a071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  stopDistance: 2
+  speed: 3
+  stopDistance: 1.5
