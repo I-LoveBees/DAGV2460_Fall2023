@@ -7,11 +7,16 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-
+    //written by me and ai
     public static GameManager instance; //singleton instance, used to help other scripts reference this one
     
+    [Header("Player Inventory")]
     public int coinCount = 0;
     public TextMeshProUGUI coinCountText;
+    public List<Key> collectedKeys = new List<Key>(); //keeps track of different keys
+    public TextMeshProUGUI keyCountText;
+
+
     
     private void Awake()
     {
@@ -44,6 +49,12 @@ public class GameManager : MonoBehaviour
         {
             coinCountText.text = "Coins: " + coinCount;
         }
+    }
+
+    public void CollectKey(Key key)
+    {
+        collectedKeys.Add(key);
+        Debug.Log("Key collected for door: " + key.doorToUnlockTag);
     }
 
 }

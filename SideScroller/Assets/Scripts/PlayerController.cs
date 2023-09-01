@@ -20,10 +20,6 @@ public class PlayerController : MonoBehaviour
     public int maxHP;
     public HealthBar healthBar;
 
-    [Header("Inventory")]
-    public int key;
-    public int coins;
-
     [Header("Audio")]
     private AudioSource source; //audio
     public AudioClip clip;
@@ -57,11 +53,23 @@ public class PlayerController : MonoBehaviour
         curHP -= damage;
         healthBar.SetHealth(curHP); //updates the heatlh bar using curHP
 
-        source.PlayOneShot(clip, 1.0f); //play a sound when getting hit
+        //source.PlayOneShot(clip, 1.0f); //play a sound when getting hit
 
         if(curHP <= 0)
         {
             GameManager.instance.Death();
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Door"))
+        {
+            Door door = other.GetComponent<Door>();
+            if (door != null)
+            {
+                door.Interact();
+            }
         }
     }
 }

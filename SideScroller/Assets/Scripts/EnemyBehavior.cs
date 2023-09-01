@@ -19,8 +19,8 @@ public class EnemyBehavior : MonoBehaviour
     private float lastAttackTime;
     public PlayerController player;
 
-    //[Header("Loot")]
-   // public GameObject lootDrop;
+    [Header("Loot")]
+    public GameObject lootDrop;
     
 
     // Start is called before the first frame update
@@ -45,6 +45,23 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    //ai
+    private void OnTriggerEnter(Collider other) //player attacking
+    {
+        if (other.CompareTag("Player"))
+        {
+            // Check if the player's collider is near the top of the enemy (head)
+            Vector3 playerColliderTop = other.bounds.center + Vector3.up * (other.bounds.size.y / 2f);
+            Vector3 enemyTop = transform.position + Vector3.up * (GetComponent<Collider>().bounds.size.y / 2f);
+
+            if (playerColliderTop.y >= enemyTop.y)
+            {
+                TakeDamage(2); //2 damage
+            }
+        }
+    }
+
+    //me
     public void TakeDamage(int damage)
     {
         curHP -= damage;
@@ -52,7 +69,7 @@ public class EnemyBehavior : MonoBehaviour
         if(curHP <= 0)
         {
             Death();
-           // LootDrop();
+            LootDrop();
         }
     }
 
@@ -60,6 +77,11 @@ public class EnemyBehavior : MonoBehaviour
     {
         lastAttackTime = Time.time;
         player.TakeDamage(damage);
+    }
+
+    void LootDrop()
+    {
+        Instantiate(lootDrop, transform.position, Quaternion.identity);
     }
 
     public void Death()
