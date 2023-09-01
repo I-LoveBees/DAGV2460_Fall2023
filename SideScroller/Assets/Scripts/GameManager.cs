@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public void Death()
     {
         Debug.Log("You Died!");
-        // SceneManager.LoadScene(); insert number here
+         SceneManager.LoadScene(1); //insert number here i think it was scene one
     }
 
 }
