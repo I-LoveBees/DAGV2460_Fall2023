@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0244b26957b863d458cf6be0e776f661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinCount: 0
+  coinCountText: {fileID: 0}
+  collectedKeys: []
+  keyCountText: {fileID: 0}
