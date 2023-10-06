@@ -1,0 +1,47 @@
+/*
+building a tool to randomize where an object is
+
+--needs-
+determine range x,y,z
+what is selected? store as variable
+random values within above range
+number of duplicates
+
+--push goals--
+randomize rotation, scale, etc.
+
+--workflow--
+select objects
+*/
+
+proc placementGenerator(float $xMin, float $xMax, float $yMin, float $yMax, float $zMin, float $zMax, int $numDups)
+{
+
+    store objects name as variable 
+    ls short for list (returns as string array) (sl is selection)
+    string $sels[] = `ls -sl` (["rock1", rock2, rock3, rock4, rock5]) //make sure the backticks are there so it actually selects and knows what ur talking about
+
+    //looping thru each object selection
+    for($i = 0; $i<size($sels); $i++)
+    { 
+        //bc the loop is nested, you must call the index (i) something else so it doesnt get confused
+        //performing actions for each individual selected object
+        for($j=0; $j<$numDups; $j++)
+        {
+          //  duplicate current object
+            string $dups[] = `duplicate -rr $sels[$i]`;
+            string $dup = $dups[0]; //just calls the name, saves keystrokes
+
+           // randomize the rotation, scale, position
+           // generate new x,y,z value based on range arguments
+            float $randX = `rand $xMin $xMax`;
+            float $randY = `rand $yMin $yMax`;
+            float $randZ = `rand $zMin $zMax`;
+
+           // translate current object to new position
+           xform -worldSpace -translation $randX $randY $randZ $dup;
+        }
+    }
+}
+
+placementGenerator(-10,30, -20, 40, -30, 50, 30)

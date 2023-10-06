@@ -1,0 +1,152 @@
+//calculator
+//procedures are defined before calculator so code knows what they are
+proc Add(float $numbers[])
+{
+    float $result = 0;
+    for ($num in $numbers)
+    {
+        $result += $num;
+    }
+    print("The sum of these numbers is " + $result);
+}  
+
+proc Subtract(float $numbers[])
+{
+    float $result = 0;
+    for ($num in $numbers)
+    {
+        $result -= $num;
+    }
+    print("The difference of these numbers is " + $result);
+} 
+
+proc Multiply(float $numbers[])
+{
+    //result starts at one since num * 0 would always be 0
+    float $result = 1;
+    for ($num in $numbers)
+    {
+        $result *= $num;
+    }
+    print("The product of these numbers is " + $result);
+} 
+
+proc Divide(float $numbers[])
+{
+    if (size($numbers) < 2)
+    {
+        print("At least two numbers are required for division.");
+        return;
+    }
+    float $result = $numbers[0]; // Initialize result to the first number
+
+    for ($i = 1; $i < size($numbers); $i++)
+    {
+        if ($numbers[$i] != 0)
+        {
+            $result /= $numbers[$i];
+        }
+        else
+        {
+            print("You cannot divide by zero");
+            return;
+        }
+    }
+
+    print("The quotient of numbers is " + $result);
+} 
+
+proc Power(float $base, int $exponent)
+{
+    float $result = 1;
+    //multiplies base however many times exponent number is
+    for ($i = 0; $i < $exponent; $i++)
+    {
+        $result *= $base;
+    }
+    print($base + " raised to the power of " + $exponent + " is " + $result);
+}
+
+proc Mean(float $numbers[])
+{
+    float $sum = 0;
+    int $count = size($numbers); // Get the count of numbers
+
+    for ($num in $numbers)
+    {
+        $sum += $num; //add all of the numbers together
+    }
+    
+    float $result = $sum / $count; //divide by count
+    print("The mean of these numbers is " + $result);
+}
+
+proc Median(float $numbers[])
+{
+    int $count = size($numbers);
+
+    // Sort the numbers in ascending order, stores with backticks
+    float $sortedNumbers[] = `sort $numbers`;
+
+    if ($count % 2 == 0)
+    {
+        // If the count is even, median is the average of middle two numbers
+        int $middle = $count / 2;
+        float $median = ($sortedNumbers[$middle - 1] + $sortedNumbers[$middle]) / 2.0;
+        print("The median of the numbers is " + $median);
+    }
+    else
+    {
+        // If the count is odd, median is the middle number
+        int $middle = ($count - 1) / 2;
+        float $median = $sortedNumbers[$middle];
+        print("The median of the numbers is " + $median);
+    }
+}
+
+proc Calculator(string $operation, float $numbers[])
+{
+    if($operation == "Add") 
+    {
+        Add($numbers);
+    }
+    else if($operation == "Subtract")
+    {
+        Subtract($numbers);
+    }
+    else if($operation == "Multiply")
+    {
+        Multiply($numbers);
+    }
+    else if($operation == "Divide")
+    {
+        Divide($numbers);
+    }
+    else if($operation == "Power")
+    {
+        if(size($numbers) == 2)
+        {
+            Power($numbers[0], int($numbers[1]));
+        }
+        else
+        {
+            print("Power operation requires two arguments: base and exponent.");
+        }
+    }
+    else if($operation == "Mean")
+    {
+        Mean($numbers);
+    }
+    else if ($operation == "Median")
+    {
+        Median($numbers);
+    }
+    else
+    {
+        print("Invalid operation: " + $operation);
+        return;
+    }
+}
+
+Calculator("Median", {3,2,8,6,3,7,4,2,6,3,7,8,5,2,2});
+
