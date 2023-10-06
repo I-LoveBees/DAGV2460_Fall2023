@@ -3,48 +3,76 @@
 proc Add(float $numbers[])
 {
     float $result = 0;
+    string $numbersUsed = "";
     for ($num in $numbers)
     {
         $result += $num;
+        $numbersUsed += $num; //should list which numbers are being added
+        //puts space and comma on each number except for last number
+        if (size($numbersUsed) > 0)
+        {
+            $numbersUsed += ", ";
+        }
     }
-    print("The sum of these numbers is " + $result);
+    print("The sum of " + $numbersUsed + "is " +  $result);
 }  
 
 proc Subtract(float $numbers[])
 {
     float $result = 0;
+    string $numbersUsed = "";
+
     for ($num in $numbers)
     {
         $result -= $num;
+        $numbersUsed += $num;
+        if (size($numbersUsed) > 0)
+        {
+            $numbersUsed += ", ";
+        }        
     }
-    print("The difference of these numbers is " + $result);
+    print("The difference of " + $numbersUsed + "is " + $result);
 } 
 
 proc Multiply(float $numbers[])
 {
     //result starts at one since num * 0 would always be 0
     float $result = 1;
+    string $numbersUsed = "";
+
     for ($num in $numbers)
     {
         $result *= $num;
+        $numbersUsed += $num;
+        if (size($numbersUsed) > 0)
+        {
+            $numbersUsed += ", ";
+        }        
     }
-    print("The product of these numbers is " + $result);
+    print("The sum of " + $numbersUsed + "is " + $result);
 } 
 
 proc Divide(float $numbers[])
 {
+    float $result = $numbers[0]; // Initialize result to the first number
+    string $numbersUsed = "";
+
     if (size($numbers) < 2)
     {
         print("At least two numbers are required for division.");
         return;
     }
-    float $result = $numbers[0]; // Initialize result to the first number
 
     for ($i = 1; $i < size($numbers); $i++)
     {
         if ($numbers[$i] != 0)
         {
             $result /= $numbers[$i];
+            $numbersUsed += $numbers[$i];
+            if (size($numbersUsed) > 0)
+            {
+                $numbersUsed += ", ";
+            }
         }
         else
         {
@@ -53,7 +81,7 @@ proc Divide(float $numbers[])
         }
     }
 
-    print("The quotient of numbers is " + $result);
+    print("The quotient of " + $numbersUsed + "is " + $result);
 } 
 
 proc Power(float $base, int $exponent)
@@ -71,36 +99,54 @@ proc Mean(float $numbers[])
 {
     float $sum = 0;
     int $count = size($numbers); // Get the count of numbers
+    string $numbersUsed = "";
 
     for ($num in $numbers)
     {
         $sum += $num; //add all of the numbers together
+        $numbersUsed += $num;
+        $numbersUsed += ", ";
+        if (size($numbersUsed) > 0)
+        {
+            $numbersUsed += ", ";
+        }
     }
     
     float $result = $sum / $count; //divide by count
-    print("The mean of these numbers is " + $result);
+    print("The mean of " + $numbersUsed + "is " + $result);
 }
 
 proc Median(float $numbers[])
 {
     int $count = size($numbers);
+    string $numbersUsed = "";
 
     // Sort the numbers in ascending order, stores with backticks
     float $sortedNumbers[] = `sort $numbers`;
+
+    //puts the numbers into a string list for print
+    for ($i = 0; $i < $count; $i++)
+    {
+        $numbersUsed += $sortedNumbers[$i];
+        if ($i < $count - 1)
+        {
+            $numbersUsed += ", ";
+        }
+    }
 
     if ($count % 2 == 0)
     {
         // If the count is even, median is the average of middle two numbers
         int $middle = $count / 2;
         float $median = ($sortedNumbers[$middle - 1] + $sortedNumbers[$middle]) / 2.0;
-        print("The median of the numbers is " + $median);
+        print("The median of " + $numbersUsed + "is " + $median);
     }
     else
     {
         // If the count is odd, median is the middle number
         int $middle = ($count - 1) / 2;
         float $median = $sortedNumbers[$middle];
-        print("The median of the numbers is " + $median);
+        print("The median of " + $numbersUsed + "is " + $median);
     }
 }
 
@@ -148,5 +194,5 @@ proc Calculator(string $operation, float $numbers[])
     }
 }
 
-Calculator("Median", {3,2,8,6,3,7,4,2,6,3,7,8,5,2,2});
+Calculator("Multiply", {3,2,8,6,3,7,4,2,6,3,7,8,5,2,2});
 
