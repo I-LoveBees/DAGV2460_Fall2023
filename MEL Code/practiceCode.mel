@@ -1,0 +1,7 @@
+//changing color of wireframe of whatever you have selected
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -ch 1; //should be smth else, whatever you selected
+//making sure overriding is checked?
+checkBoxGrp -e -en1 true valueFld;
+//changing color
+changeObjColor pSphereShape1.overrideColor AttributeEditor|MainAttributeEditorLayout|formLayout93|AErootLayout|AEStackLayout|AErootLayoutPane|AEbaseFormLayout|AEcontrolFormLayout|AttrEdmeshFormLayout|scrollLayout17|columnLayout186|frameLayout194|columnLayout194|frameLayout231|columnLayout248|columnLayout269|objIndexColorSlider;
+updateLayerColor pSphereShape1.overrideColor AttributeEditor|MainAttributeEditorLayout|formLayout93|AErootLayout|AEStackLayout|AErootLayoutPane|AEbaseFormLayout|AEcontrolFormLayout|AttrEdmeshFormLayout|scrollLayout17|columnLayout186|frameLayout194|columnLayout194|frameLayout231|columnLayout248|columnLayout269|objIndexColorSlider;

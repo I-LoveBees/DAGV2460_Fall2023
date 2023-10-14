@@ -14,23 +14,33 @@ randomize rotation, scale, etc.
 select objects
 */
 
-proc placementGenerator(float $xMin, float $xMax, float $yMin, float $yMax, float $zMin, float $zMax, int $numDups)
+//UI code
+
+global proc placementGenerator(float $xMin, float $xMax, float $yMin, float $yMax, float $zMin, float $zMax, int $numDups)
 {
 
-    store objects name as variable 
-    ls short for list (returns as string array) (sl is selection)
-    string $sels[] = `ls -sl` (["rock1", rock2, rock3, rock4, rock5]) //make sure the backticks are there so it actually selects and knows what ur talking about
+    //store objects name as variable 
+    //ls short for list (returns as string array) (sl is selection)
+    string $sels[] = `ls -sl`; //make sure the backticks are there so it actually selects and knows what ur talking about
+
+    //makes sure something is actually selected
+    if(size($sels) == 0)
+    {
+      warning("No objects selected.");
+      return;
+    }
 
     //looping thru each object selection
     for($i = 0; $i<size($sels); $i++)
     { 
+        //stores current objects name
+        string $sel = $sels[$i];
         //bc the loop is nested, you must call the index (i) something else so it doesnt get confused
         //performing actions for each individual selected object
         for($j=0; $j<$numDups; $j++)
         {
           //  duplicate current object
-            string $dups[] = `duplicate -rr $sels[$i]`;
-            string $dup = $dups[0]; //just calls the name, saves keystrokes
+            string $dup[] = `duplicate -rr $sel`;
 
            // randomize the rotation, scale, position
            // generate new x,y,z value based on range arguments
@@ -44,4 +54,58 @@ proc placementGenerator(float $xMin, float $xMax, float $yMin, float $yMax, floa
     }
 }
 
-placementGenerator(-10,30, -20, 40, -30, 50, 30)
+global proc PlacementGenUI()
+{
+  global string $mWindow;
+  $mWindow = "PlacementGenerator";
+
+  if(`window -exists $mWindow`)
+  {
+    deleteUI $mWindow;
+  }
+
+  $mWindow = `window -title "Object Placement Generator" -resizeToFitChildren 1 $mWindow`;
+  string $mColumn = `rowColumnLayout -parent $mWindow -numberOfRows 15`;
+  string $xRow = `rowLayout -parent $mColumn -numberOfColumns 4 -adjustableColumn 1`;
+    text -label "X minimum" -align "left"; 
+    floatField -annotation "X Minimum" "XMinimum";
+    text -label "X maximum" -align "left"; 
+    floatField -annotation "X Maximum" "XMaximum";
+  string $yRow = `rowLayout -parent $mColumn -numberOfColumns 4 -adjustableColumn 1`;
+    text -label "Y minimum" -align "left";
+    floatField -annotation "Y Minimum" "YMinimum";
+    text -label "Y maximum" -align "left"; 
+    floatField -annotation "Y Maximum" "YMaximum";
+  string $zRow = `rowLayout -parent $mColumn -numberOfColumns 4 -adjustableColumn 1`;
+    text -label "Z minimum" -align "left"; 
+    floatField -annotation "Z Minimum" "ZMinimum";
+    text -label "X maximum" -align "left"; 
+    floatField -annotation "Z Maximum" "ZMaximum";
+  string $dupRow = `rowLayout -parent $mColumn -numberOfColumns 2 -adjustableColumn 1`;
+    text -label "Number of Duplicates" -align "left"; 
+    intField -annotation "Number of Duplicates" "Duplicates";
+  string $buttonRow = `rowLayout -parent $mColumn -numberOfColumns 2`;
+  button -parent $buttonRow -label "Close" -command ("deleteUI -window " + $mWindow);
+  button -parent $buttonRow -label "Generate" -command "PlaceGen_ButtonCMD";
+
+  showWindow $mWindow;  
+}
+
+global proc PlaceGen_ButtonCMD()
+{
+  //getting values that were inputted
+    float $XMin = `floatField -query -value "XMinimum"`;
+    float $XMax = `floatField -query -value "XMaximum"`;
+    float $YMin = `floatField -query -value "YMinimum"`;
+    float $YMax = `floatField -query -value "YMaximum"`;
+    float $ZMin = `floatField -query -value "ZMinimum"`;
+    float $ZMax = `floatField -query -value "ZMaximum"`;
+    int $numDups = `intField -query -value "Duplicates"`;
+
+  //call the actual function
+  placementGenerator($XMin, $XMax, $YMin, $YMax, $ZMin, $ZMax, $numDups);
+}
+
+
+
+PlacementGenUI();
