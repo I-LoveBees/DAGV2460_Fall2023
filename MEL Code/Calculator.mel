@@ -1,6 +1,6 @@
 //calculator
 //procedures are defined before calculator so code knows what they are
-proc Add(float $numbers[])
+global proc Add(float $numbers[])
 {
     float $result = 0;
     string $numbersUsed = "";
@@ -17,7 +17,7 @@ proc Add(float $numbers[])
     print("The sum of " + $numbersUsed + "is " +  $result);
 }  
 
-proc Subtract(float $numbers[])
+global proc Subtract(float $numbers[])
 {
     float $result = 0;
     string $numbersUsed = "";
@@ -34,7 +34,7 @@ proc Subtract(float $numbers[])
     print("The difference of " + $numbersUsed + "is " + $result);
 } 
 
-proc Multiply(float $numbers[])
+global proc Multiply(float $numbers[])
 {
     //result starts at one since num * 0 would always be 0
     float $result = 1;
@@ -52,7 +52,7 @@ proc Multiply(float $numbers[])
     print("The sum of " + $numbersUsed + "is " + $result);
 } 
 
-proc Divide(float $numbers[])
+global proc Divide(float $numbers[])
 {
     float $result = $numbers[0]; // Initialize result to the first number
     string $numbersUsed = "";
@@ -84,7 +84,7 @@ proc Divide(float $numbers[])
     print("The quotient of " + $numbersUsed + "is " + $result);
 } 
 
-proc Power(float $base, int $exponent)
+global proc Power(float $base, int $exponent)
 {
     float $result = 1;
     //multiplies base however many times exponent number is
@@ -95,7 +95,7 @@ proc Power(float $base, int $exponent)
     print($base + " raised to the power of " + $exponent + " is " + $result);
 }
 
-proc Mean(float $numbers[])
+global proc Mean(float $numbers[])
 {
     float $sum = 0;
     int $count = size($numbers); // Get the count of numbers
@@ -116,7 +116,7 @@ proc Mean(float $numbers[])
     print("The mean of " + $numbersUsed + "is " + $result);
 }
 
-proc Median(float $numbers[])
+global proc Median(float $numbers[])
 {
     int $count = size($numbers);
     string $numbersUsed = "";
@@ -150,7 +150,7 @@ proc Median(float $numbers[])
     }
 }
 
-proc Calculator(string $operation, float $numbers[])
+global proc Calculator(string $operation, float $numbers[])
 {
     if($operation == "Add") 
     {
@@ -194,5 +194,84 @@ proc Calculator(string $operation, float $numbers[])
     }
 }
 
-Calculator("Multiply", {3,2,8,6,3,7,4,2,6,3,7,8,5,2,2});
 
+//UI
+
+global proc CalulatorUI()
+{
+    //main window
+  global string $mWindow;
+  $mWindow = "Calculator";
+
+  if(`window -exists $mWindow`)
+  {
+    deleteUI $mWindow;
+  }
+    
+    $mWindow = `window -title "Calculate" -resizeToFitChildren 1 $mWindow`;
+    string $mRow = `rowLayout -parent $mWindow`;
+    textField -parent $mRow -editable 0 -height 200 -width 400;
+    string $mGrid = `gridLayout -parent $mRow -numberOfRowsColumns 6 4 -cellWidthHeight 100 100
+                    -position "fillButton1" 1 -position "fillButton1" 2 -position "fillButton1" 3 -position "Clear" 4
+                    -position "Mean" 5 -position "Median" 6 -position "Power" 7 -position "Divide" 8
+                    -position "7" 9 -position "8" 10 -position "9" 11 -position "Multiply" 12
+                    -position "4" 13 -position "5" 14 -position "6" 15 -position "Subtract" 16
+                    -position "1" 17 -position "2" 18 -position "3" 19 -position "Add" 20
+                    -position "," 21 -position "0" 22 -position "." 23 -position "Equals" 24`;
+    //first row of buttons
+    button -parent $mGrid -label "fillButton1" -enable 0; //filler button
+    button -parent $mGrid -label "fillButton2" -enable 0;
+    button -parent $mGrid -label "fillButton3" -enable 0;
+    button -parent $mGrid -label "Clear" -command "ButtonClearCMD";
+    //second row (left to right)
+    button -parent $mGrid -label "Mean" -command "ButtonMeanCMD";
+    button -parent $mGrid -label "Median" -command "ButtonMedCMD";
+    button -parent $mGrid -label "Power" -command "ButtonPowCMD";
+    button -parent $mGrid -label "Divide" -command "ButtonDivCMD";
+    //third row
+    button -parent $mGrid -label "7" -command "UpdateExpression(7)";
+    button -parent $mGrid -label "8" -command "";
+    button -parent $mGrid -label "9" -command "";
+    button -parent $mGrid -label "Multiply" -command "ButtonMultCMD";
+    //fourth row
+    button -parent $mGrid -label "4" -command "";
+    button -parent $mGrid -label "5" -command "";
+    button -parent $mGrid -label "6" -command "";
+    button -parent $mGrid -label "Subtract" -command "ButtonSubCMD";
+    //fifth row
+    button -parent $mGrid -label "1" -command "";
+    button -parent $mGrid -label "2" -command "";
+    button -parent $mGrid -label "3" -command "";
+    button -parent $mGrid -label "Add" -command "ButtonAddCMD";
+    //sixth row
+    button -parent $mGrid -label "," -command "";
+    button -parent $mGrid -label "0" -command "";
+    button -parent $mGrid -label "." -command "";
+    button -parent $mGrid -label "Equals" -command "ButtonEqualsCMD";
+
+    showWindow $mWindow;
+}
+
+//button commands
+global proc ButtonClearCMD()
+{
+    clear $numbers[]; //sets array to 0
+    //clear text field
+}
+
+global proc UpdateExpression(string $value)
+{
+    global string $expression;
+    $expression += $value;
+    textField -edit -text $expression;
+}
+
+global proc ButtonEqualsCMD()
+{
+    global string $expression;
+    updateExpression("=");
+    //call function
+    Calculator("Multiply", {3,2,8,6,3,7,4,2,6,3,7,8,5,2,2});
+    //display result
+
+}
