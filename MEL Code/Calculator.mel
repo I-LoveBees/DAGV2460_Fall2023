@@ -59,7 +59,7 @@ global proc Divide(float $numbers[])
 
     if (size($numbers) < 2)
     {
-        print("At least two numbers are required for division.");
+        error("At least two numbers are required for division.");
         return;
     }
 
@@ -76,7 +76,7 @@ global proc Divide(float $numbers[])
         }
         else
         {
-            print("You cannot divide by zero");
+            error("You cannot divide by zero");
             return;
         }
     }
@@ -176,7 +176,7 @@ global proc Calculator(string $operation, float $numbers[])
         }
         else
         {
-            print("Power operation requires two arguments: base and exponent.");
+            error("Power operation requires two arguments: base and exponent.");
         }
     }
     else if($operation == "Mean")
@@ -189,7 +189,7 @@ global proc Calculator(string $operation, float $numbers[])
     }
     else
     {
-        print("Invalid operation: " + $operation);
+        error("Invalid operation: " + $operation);
         return;
     }
 }
@@ -197,10 +197,11 @@ global proc Calculator(string $operation, float $numbers[])
 
 //UI
 
-global proc CalulatorUI()
+global proc CalculatorUI()
 {
+    global string $expression; //so the whole ui can use this expression
     //main window
-  global string $mWindow;
+    global string $mWindow;
   $mWindow = "Calculator";
 
   if(`window -exists $mWindow`)
@@ -209,15 +210,19 @@ global proc CalulatorUI()
   }
     
     $mWindow = `window -title "Calculate" -resizeToFitChildren 1 $mWindow`;
-    string $mRow = `rowLayout -parent $mWindow`;
-    textField -parent $mRow -editable 0 -height 200 -width 400;
-    string $mGrid = `gridLayout -parent $mRow -numberOfRowsColumns 6 4 -cellWidthHeight 100 100
+    //results
+    global string $mRow;
+    $mRow = `rowLayout -parent $mWindow $mRow`;
+    global string $resultText;
+    $resultText = `textField -parent $mRow -editable 0 -height 200 -width 400 -text $expression`;
+    //number grid buttons and stuff 
+    string $mGrid = `gridLayout -parent $mWindow -numberOfRowsColumns 6 4 -cellWidthHeight 100 100
                     -position "fillButton1" 1 -position "fillButton1" 2 -position "fillButton1" 3 -position "Clear" 4
                     -position "Mean" 5 -position "Median" 6 -position "Power" 7 -position "Divide" 8
                     -position "7" 9 -position "8" 10 -position "9" 11 -position "Multiply" 12
                     -position "4" 13 -position "5" 14 -position "6" 15 -position "Subtract" 16
                     -position "1" 17 -position "2" 18 -position "3" 19 -position "Add" 20
-                    -position "," 21 -position "0" 22 -position "." 23 -position "Equals" 24`;
+                    -position "," 21 -position "0" 22 -position "." 23 -position "Equals" 24 $mGrid`;
     //first row of buttons
     button -parent $mGrid -label "fillButton1" -enable 0; //filler button
     button -parent $mGrid -label "fillButton2" -enable 0;
@@ -226,37 +231,39 @@ global proc CalulatorUI()
     //second row (left to right)
     button -parent $mGrid -label "Mean" -command "ButtonMeanCMD";
     button -parent $mGrid -label "Median" -command "ButtonMedCMD";
-    button -parent $mGrid -label "Power" -command "ButtonPowCMD";
-    button -parent $mGrid -label "Divide" -command "ButtonDivCMD";
+    button -parent $mGrid -label "Power" -command "UpdateExpression(^)";
+    button -parent $mGrid -label "Divide" -command "UpdateExpression(/)";
     //third row
     button -parent $mGrid -label "7" -command "UpdateExpression(7)";
-    button -parent $mGrid -label "8" -command "";
-    button -parent $mGrid -label "9" -command "";
-    button -parent $mGrid -label "Multiply" -command "ButtonMultCMD";
+    button -parent $mGrid -label "8" -command "UpdateExpression(8)";
+    button -parent $mGrid -label "9" -command "UpdateExpression(9)";
+    button -parent $mGrid -label "Multiply" -command "UpdateExpression(*)";
     //fourth row
-    button -parent $mGrid -label "4" -command "";
-    button -parent $mGrid -label "5" -command "";
-    button -parent $mGrid -label "6" -command "";
-    button -parent $mGrid -label "Subtract" -command "ButtonSubCMD";
+    button -parent $mGrid -label "4" -command "UpdateExpression(4)";
+    button -parent $mGrid -label "5" -command "UpdateExpression(5)";
+    button -parent $mGrid -label "6" -command "UpdateExpression(6)";
+    button -parent $mGrid -label "Subtract" -command "UpdateExpression(-)";
     //fifth row
-    button -parent $mGrid -label "1" -command "";
-    button -parent $mGrid -label "2" -command "";
-    button -parent $mGrid -label "3" -command "";
-    button -parent $mGrid -label "Add" -command "ButtonAddCMD";
+    button -parent $mGrid -label "1" -command "UpdateExpression(1)";
+    button -parent $mGrid -label "2" -command "UpdateExpression(2)";
+    button -parent $mGrid -label "3" -command "UpdateExpression(3)";
+    button -parent $mGrid -label "Add" -command "UpdateExpression(+)";
     //sixth row
-    button -parent $mGrid -label "," -command "";
-    button -parent $mGrid -label "0" -command "";
-    button -parent $mGrid -label "." -command "";
+    button -parent $mGrid -label "," -command "UpdateExpression(,)";
+    button -parent $mGrid -label "0" -command "UpdateExpression(0)";
+    button -parent $mGrid -label "." -command "UpdateExpression(.)";
     button -parent $mGrid -label "Equals" -command "ButtonEqualsCMD";
 
     showWindow $mWindow;
+    CalculatorUI();
 }
 
 //button commands
-global proc ButtonClearCMD()
+global proc ButtonClearCMD(float $numbers[])
 {
-    clear $numbers[]; //sets array to 0
+   // clear $numbers[]; //sets array to 0 (doesnt work)
     //clear text field
+    textField -edit -text "";
 }
 
 global proc UpdateExpression(string $value)
@@ -270,8 +277,14 @@ global proc ButtonEqualsCMD()
 {
     global string $expression;
     updateExpression("=");
+    string $result = `eval $expression`;
     //call function
-    Calculator("Multiply", {3,2,8,6,3,7,4,2,6,3,7,8,5,2,2});
+    //Calculator("Multiply", {3,2,8,6,3,7,4,2,6,3,7,8,5,2,2});
     //display result
+    textField -edit -text $result;
+}
 
+if(!`exists "Calculator"`)
+{
+    CalulatorUI();    
 }
