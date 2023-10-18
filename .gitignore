@@ -71,3 +71,6 @@ Unity/ColorMatch Game/.idea/.idea.ColorMatch Game/.idea/
 *.png
 *.pdf
 *.mov
+
+# houdini plugin
+/sidescroller/Assets/Plugins/HoudiniEngineUnity/
