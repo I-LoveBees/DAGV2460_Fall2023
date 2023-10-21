@@ -1,0 +1,53 @@
+//generative staircase oh boy
+/*
+goals
+Number of stairs to be created
+Stair length
+Stair width
+Stair height
+Stair pivot point or offset
+Step height
+Step rotation
+maybe a pole for the stairs to be on?? idk
+*/
+proc GenerateStaircase(int $StairNum, float $StairLength, float $StairHeight, float $StairWidth,float $StairPivot, float $StepHeight, float $StepRotation)
+{
+    //set initial positions
+    float $intPosX = 0;
+    float $intPosY = 0;
+    float $intPosZ = 0;
+    float $intRotX = 0;
+    float $intRotY = 90;
+    float $intRotZ = 0;
+
+    //making sure number of stairs is greater than zero
+    if($StairNum <= 0) 
+    {
+        error("You can't make a staircase out of no stairs!! Try again");
+        return;
+    }
+
+    for($i = 0; $i < $StairNum; $i++)
+    {
+        
+        //create stair and
+        //numbers stairs correctly
+        string $Stair[] = `polyCube -width $StairWidth -height $StairHeight -depth $StairLength -subdivisionsX 1 -subdivisionsY 1 -subdivisionsZ 1 -axis 0 1 0 -createUVs 4 -constructionHistory 1 -name "Stair"`; 
+
+        //get angle for current step
+        float $angle = $i * ($StepRotation *(3.14/180));
+
+        //get position of step
+        float $posX = $StairPivot * cos($angle);
+        float $posY = $i * $StepHeight;
+        float $posZ = $StairPivot * sin($angle);
+
+        //moving stair to position
+        move ($intPosX + $posX) ($intPosY + $posY) ($intPosZ + $posZ) $Stair[0];
+        //rotating the stair
+       rotate -relative -os $intRotX (($intRotY + $i * -25)) $intRotZ $Stair[0] ;
+
+    }
+}
+//              num, L, H,   W, Ro,StepH,
+GenerateStaircase(10, 2, 0.5, 1, 20, 5, 20);
