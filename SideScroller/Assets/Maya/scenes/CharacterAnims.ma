@@ -1,6 +1,6 @@
 //Maya ASCII 2023 scene
 //Name: CharacterAnims.ma
-//Last modified: Wed, Oct 25, 2023 01:20:01 PM
+//Last modified: Wed, Oct 25, 2023 01:03:28 PM
 //Codeset: 1252
 file -rdi 1 -ns "Ultimate_Walker_Rig" -rfn "Ultimate_Walker_RigRN" -op "v=0;"
 		 -typ "mayaAscii" "C:/Users/brook/OneDrive - Utah Valley University/Documents/Git/DAGV2210_Fall2023/RigReferences/Ultimate_Walker_Rig.ma";
@@ -15,12 +15,12 @@ fileInfo "product" "Maya 2023";
 fileInfo "version" "2023";
 fileInfo "cutIdentifier" "202211021031-847a9f9623";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 22621)";
-fileInfo "UUID" "519E8C18-4814-47C8-ECEB-BB967BEE7E49";
+fileInfo "UUID" "ADFEA815-4D32-4468-D332-7BAA0EEBE3DA";
 createNode transform -s -n "persp";
 	rename -uid "06028146-4043-A864-DD35-319CFE5B7C90";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 14.470047294575632 7.3346698532032271 -6.5545703151371253 ;
-	setAttr ".r" -type "double3" -16.799999999992036 -256.39999999999452 0 ;
+	setAttr ".t" -type "double3" 15.320530230575976 5.186524982543216 -1.3463057441769297 ;
+	setAttr ".r" -type "double3" -8.9999999999980655 -275.60000000000156 0 ;
 	setAttr ".rpt" -type "double3" 3.7025965105206897e-18 -1.8109069299212375e-16 -8.8001927186788396e-17 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "53C7EB38-44D7-F886-8CD7-948B37E60CBB";
@@ -3191,7 +3191,7 @@ createNode script -n "uiConfigurationScriptNode";
 	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
 	rename -uid "1C8342A8-425C-B509-30C8-008A31D2E1C9";
-	setAttr ".b" -type "string" "playbackOptions -min 0 -max 145 -ast 0 -aet 150 ";
+	setAttr ".b" -type "string" "playbackOptions -min 110 -max 150 -ast 0 -aet 150 ";
 	setAttr ".st" 6;
 createNode animCurveTU -n "walker_rt_heel_ik_ctrl_toeRoll";
 	rename -uid "F13FF7A7-4B77-9DA3-6877-1FAC8A84A4E9";
@@ -3696,7 +3696,7 @@ createNode animCurveTL -n "walker_rt_knee_pv_ctrl_translateY";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
 	setAttr -s 9 ".ktv[0:8]"  0 0.29816871998454797 24 0.29816871998454797
-		 30 0.29816871998454797 52 0.29816871998454797 60 0.29816871998454797 66 1.2673664403803233
+		 30 0.29816871998454797 52 0.29816871998454797 60 0.29816871998454797 66 2.6619872381182903
 		 70 -0.26451242467050839 110 -0.26451242467050839 122 -1.2341229291075919;
 createNode animCurveTL -n "walker_rt_knee_pv_ctrl_translateZ";
 	rename -uid "A2A21E14-4EEE-67FE-C8CA-329EA3F2079A";
@@ -3716,7 +3716,7 @@ createNode animCurveTL -n "walker_lf_knee_pv_ctrl_translateY";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
 	setAttr -s 9 ".ktv[0:8]"  0 0.27961220818323107 24 0.27961220818323107
-		 30 0.27961220818323107 52 0.27961220818323107 60 0.27961220818323107 66 1.2349272043312958
+		 30 0.27961220818323107 52 0.27961220818323107 60 0.27961220818323107 66 2.6990668314527255
 		 70 -0.17070966988948033 110 -0.17070966988948033 122 -1.1469590394444418;
 createNode animCurveTL -n "walker_lf_knee_pv_ctrl_translateZ";
 	rename -uid "C3DE901B-44F7-0529-2EAB-CDB36B9D7EFA";
@@ -3801,7 +3801,8 @@ select -ne :time1;
 	setAttr -cb on ".ihi";
 	setAttr -k on ".nds";
 	setAttr -cb on ".bnm";
-	setAttr ".o" 0;
+	setAttr ".o" 115;
+	setAttr ".unw" 115;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1

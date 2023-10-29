@@ -50,7 +50,7 @@ global proc CalculationUI()
     button -parent $mGrid -label "." -command "UpdateExpression(.)";
     button -parent $mGrid -label "Equals" -command "ButtonEqualsCMD";
     showWindow $mWindow; //show window
-    CalculationUI();
+
     }
     else
     {
@@ -58,5 +58,5 @@ global proc CalculationUI()
         print("Error: " + $error + "\n");
     }
 }
-
+CalculationUI();
 
