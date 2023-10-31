@@ -11,36 +11,25 @@ public class AnimatorController : MonoBehaviour
 
     private void Update()
     {
-        HandleInput();
-        HandleJumpToIdle();
-    }
-
-    private void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping) //if space is pressed, jump
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) //if keys go down, walk
+        {
+            animator.ResetTrigger(idle);
+            animator.SetTrigger(walk);
+            //isArrowEventCalled = true;
+            if(Input.GetKeyDown(KeyCode.LeftShift)) //hold shift to run
+            {
+                animator.SetTrigger(run);
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) //if keys go up, idle
+        {
+            animator.SetTrigger(idle);
+            //isArrowEventCalled = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !isJumping) //if space is pressed, jump
         {
             animator.SetTrigger(jump);
             isJumping = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) //if keys go down, walk
-        {
-            animator.SetTrigger(walk);
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) //if keys go up, idle
-        {
-            animator.SetTrigger(idle);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftShift)) //hold shift to run
-        {
-            animator.SetTrigger(run);
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow)) //if shift is released, go back to walking state
-        {
-            animator.SetTrigger(walk);
-        }//if every key is let go, go back to idle state
-        else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftShift))
-        {
-            animator.SetTrigger(idle);
         }
     }
 

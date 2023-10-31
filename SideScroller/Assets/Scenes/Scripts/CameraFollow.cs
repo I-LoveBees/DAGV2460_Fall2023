@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
 {
     //ai
     public Transform target;          // Player's transform to follow
-    public Vector3 offset = new Vector3(0f, 2f, -5f);  // Camera offset from the player
+    public Vector3 offset = new Vector3(0f, 5f, 10f);  // Camera offset from the player
     public float smoothSpeed = 0.125f; // Smoothing factor for camera movement
     public bool lockRotationX = false;
     public bool lockRotationY = true;
