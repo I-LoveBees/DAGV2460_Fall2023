@@ -4,10 +4,9 @@ import maya.cmds as cmds
 cmds.softSelect(sse=1)
 # create base sphere
 cmds.polySphere(r=3, n='Sphere1')
-cmds.polySphere(r=3, n='Sphere1')
 cmds.move(0, 2.58, 0, relative=1)
 # extend and flatten base
-cmds.select('Sphere1.f[360:379]', add=1)
+cmds.select('Sphere1.f[360:379]')
 cmds.scale(1, 1e-05, 1, r=1, pivot=[-2.38419e-07, 0.43934, -3.57628e-07])
 cmds.scale(1.16451, 1.16451, 1.16451, r=1, pivot=[-2.38419e-07, 0.43934, -3.57628e-07])
 
@@ -15,7 +14,7 @@ cmds.scale(1.16451, 1.16451, 1.16451, r=1, pivot=[-2.38419e-07, 0.43934, -3.5762
 cmds.polySphere(r=2, n='Sphere2')
 cmds.move(0, 6.9, 0, relative=1, objectSpace=1, wd=1)
 # extend and flatten base
-cmds.select('Sphere2.f[360:379]', add=1)
+cmds.select('Sphere2.f[360:379]')
 cmds.scale(1, 0.584129, 1, r=1, pivot=[-1.78814e-07, 5.200246, -2.98023e-07])
 cmds.scale(1.09912, 1.09912, 1.09912, r=1, pivot=[-1.78814e-07, 5.200246, -2.98023e-07])
 
@@ -23,7 +22,7 @@ cmds.scale(1.09912, 1.09912, 1.09912, r=1, pivot=[-1.78814e-07, 5.200246, -2.980
 cmds.polySphere(r=1, n='Sphere3')
 cmds.move(0, 9.5, 0, r=1, os=1, wd=1)
 # flatten and extend base
-cmds.select('Sphere3.f[360:379]', add=1)
+cmds.select('Sphere3.f[360:379]')
 cmds.scale(1.162151, 1.162151, 1.162151, r=1, pivot=[-8.9407e-08, 8.689216, -1.49012e-07])
 cmds.scale(1, 0.689034, 1, r=1, pivot=[-8.9407e-08, 8.689216, -1.49012e-07])
 
@@ -39,6 +38,7 @@ cmds.move(0.3, 9.9, 0.883, r=1, os=1, wd=1)
 cmds.rotate(0, -15, 0, r=1, os=1, fo=1)
 cmds.scale(0.152, 0.152, 0.085, r=1)
 # left eye
+cmds.polySphere(n='Sphere5')
 cmds.move(-0.3, 9.9, 0.883, r=1, os=1, wd=1)
 cmds.rotate(0, -15, 0, r=1, os=1, fo=1)
 cmds.scale(0.152, 0.152, 0.085, r=1)
@@ -49,7 +49,7 @@ cmds.move(3.788, 8.191, 0, r=1, os=1, wd=1)
 cmds.scale(4.585, 0.313, 0.313, r=1)
 cmds.rotate(0, 0, 15, r=1, os=1, fo=1)
 # moving faces and edges to make a branch
-cmds.select('Cube1.e[18]', 'Cube1.e[23]', ' Cube1.e[28]', 'Cube1.e[33]', add=1)
+cmds.select('Cube1.e[18]', 'Cube1.e[23]', ' Cube1.e[28]', 'Cube1.e[33]')
 cmds.move(0, -0.57526, 0, r=1)
 cmds.select(clear=1)
 cmds.select('Cube1.f[16]', replace=1)
