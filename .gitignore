@@ -65,12 +65,15 @@ Basics/001 Conventions and Syntax/.idea/.idea.001 Conventions and Syntax.dir/.id
 
 Unity/ColorMatch Game/.idea/.idea.ColorMatch Game/.idea/
 
-# video files and such
+# video and picture files and such
 *.mp4
 *.avi
 *.png
 *.pdf
 *.mov
+*.exr
+*.jpg
+*.jpeg
 
 # houdini plugin
 /sidescroller/Assets/Plugins/HoudiniEngineUnity/
