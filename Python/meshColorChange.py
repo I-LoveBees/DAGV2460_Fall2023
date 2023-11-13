@@ -14,4 +14,4 @@ def changeColor(color=None):
             cmds.setAttr(shape + '.overrideEnabled', 1)
             cmds.setAttr(shape + '.overrideColor', color)
 
-    changeColor(4)
+changeColor(4)
