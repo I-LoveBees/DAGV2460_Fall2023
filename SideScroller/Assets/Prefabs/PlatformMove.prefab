@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  stopDistance: 2.5
+  stopDistance: 5
 --- !u!54 &8041356840797018704
 Rigidbody:
   m_ObjectHideFlags: 0
