@@ -8,11 +8,6 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 7f;        // Force applied when jumping
     public float gravity = -9.81f;      // Gravity applied to the character
 
-    [Header ("PlayerHealth")]
-    public int curHP;
-    public int maxHP;
-    public HealthBar healthBar;
-
     [Header("Audio")]
     private AudioSource source; //audio
     public AudioClip clip;
@@ -59,7 +54,7 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0f;
         }
         // Jumping
-        if (controller.isGrounded && Input.GetButton("Jump"))
+        if (controller.isGrounded && Input.GetButtonUp("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2 * gravity);
         }
@@ -75,19 +70,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //should prolly put these in another script???
-    public void TakeDamage(int damage)
-    {
-        curHP -= damage;
-        healthBar.SetHealth(curHP); //updates the heatlh bar using curHP
-
-        source.PlayOneShot(clip, 1.0f); //play a sound when getting hit
-
-        if(curHP <= 0)
-        {
-            GameManager.instance.Death();
-        }
-    }
 
     public void OnTriggerEnter(Collider other)
     {

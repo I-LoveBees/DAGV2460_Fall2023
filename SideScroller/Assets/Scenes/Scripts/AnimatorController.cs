@@ -5,7 +5,8 @@ public class AnimatorController : MonoBehaviour
     public Animator animator;
     private readonly int idle = Animator.StringToHash("idle");
     private readonly int walk = Animator.StringToHash("walk");
-    private readonly int jump = Animator.StringToHash("jump");
+    private readonly int jumpJump = Animator.StringToHash("jumpJump");
+    private readonly int jumpSquat = Animator.StringToHash("jumpSquat");
     private readonly int run = Animator.StringToHash("run");
 
     private void Update()
@@ -22,7 +23,7 @@ public class AnimatorController : MonoBehaviour
             animator.ResetTrigger(walk);
             animator.ResetTrigger(run);
         }
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) && Input.GetKeyDown(KeyCode.LeftShift)) //hold shift to run
+        else if (Input.GetKeyDown(KeyCode.LeftShift)) //hold shift to run
         {
             animator.SetTrigger(run);
             animator.ResetTrigger(idle);
@@ -34,17 +35,17 @@ public class AnimatorController : MonoBehaviour
             animator.ResetTrigger(walk);
             animator.ResetTrigger(run);
         }
-        else if (Input.GetKey(KeyCode.Space)) //if space is pressed, jump
+        else if (Input.GetKey(KeyCode.Space)) //if space is pressed, jumpsquat
         {
-            animator.SetTrigger(jump);
+            animator.SetTrigger(jumpSquat);
             animator.ResetTrigger(idle);
             animator.ResetTrigger(walk);
             animator.ResetTrigger(run);
         }
-        else if (Input.GetKeyUp(KeyCode.Space)) //when space is lifted, idle
+        else if (Input.GetKeyUp(KeyCode.Space)) //when space is lifted, jumpJump
         {
-            animator.SetTrigger(idle);
-            animator.ResetTrigger(jump);
+            animator.SetTrigger(jumpJump);
+            animator.ResetTrigger(jumpSquat);
             animator.ResetTrigger(walk);
             animator.ResetTrigger(run);
         }
@@ -52,7 +53,8 @@ public class AnimatorController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        animator.ResetTrigger(jump);
+        animator.ResetTrigger(jumpSquat);
+        animator.ResetTrigger(jumpJump);
         animator.ResetTrigger(run);
         animator.ResetTrigger(walk);
         animator.SetTrigger(idle);

@@ -26,12 +26,12 @@ public class TextMeshProBehaviour : MonoBehaviour
     {
         raiseEvent.Invoke();
     }
-
+/*
     public new void UpdateText(StringList stringListDataObj)
     {
         textObj.text = stringListDataObj.ReturnCurrentLine();
     }
-    
+    */
     public new void UpdateText(IntData intDataObj)
     {
         textObj.text = intDataObj.value.ToString();
