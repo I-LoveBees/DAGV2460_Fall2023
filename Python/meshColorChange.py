@@ -15,3 +15,26 @@ def changeColor(color=None):
             cmds.setAttr(shape + '.overrideColor', color)
 
 changeColor(4)
+
+class MeshColorUI():
+    def __init__(self):
+        self.window_name = 'MeshColorChange'
+        # variable for window name ^
+
+    def delete(self):
+        # check to see if exists, delete if true
+        if cmds.window('%sWindow' % (self.window_name), exists=True):
+            cmds.deleteUI('%sWindow' % (self.window_name))
+
+    def create(self):
+        self.delete()
+        # create window, assigned 'window' to the name 'calculate' and reassigned it to self.window_name
+        self.window_name = cmds.window('%sWindow' % (self.window_name),
+                                       title='%s Tool' % (self.window_name))
+
+        # define layout
+        cmds.columnLayout()
+        # add controls as needed
+        cmds.button()
+        cmds.button()
+        cmds.button()
