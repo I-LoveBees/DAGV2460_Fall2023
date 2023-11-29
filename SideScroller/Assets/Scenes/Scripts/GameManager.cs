@@ -50,11 +50,4 @@ public class GameManager : MonoBehaviour
             coinCountText.text = "Coins: " + coinCount;
         }
     }
-
-    public void CollectKey(Key key)
-    {
-        collectedKeys.Add(key);
-        Debug.Log("Key collected for door: " + key.doorToUnlockTag);
-    }
-
 }

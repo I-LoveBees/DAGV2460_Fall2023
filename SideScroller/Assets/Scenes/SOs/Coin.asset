@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3789cb4249f26546957ccd81f2f4c7b, type: 3}
+  m_Script: {fileID: 11500000, guid: c6df0c6962af14c60b2d5c35ebd9c64c, type: 3}
   m_Name: Coin
   m_EditorClassIdentifier: 
-  value: 3234
+  value: 0
   decrementEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -27,7 +27,19 @@ MonoBehaviour:
       m_Calls: []
   enableEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 7c6ad17576c35384c8f0c22d36357aac, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   atMinValue:
     m_PersistentCalls:
       m_Calls: []

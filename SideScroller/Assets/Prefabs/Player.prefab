@@ -5208,7 +5208,6 @@ GameObject:
   - component: {fileID: 8054131332069438210}
   - component: {fileID: 1229836557827064072}
   - component: {fileID: 921446566366173874}
-  - component: {fileID: 1562186253244718385}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5247,8 +5246,6 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 5
   gravity: -10
-  curHP: 10
-  maxHP: 10
   clip: {fileID: 8300000, guid: 39d37699e6c22ef40818b60297fdbf19, type: 3}
 --- !u!143 &8054131332069438210
 CharacterController:
@@ -5322,27 +5319,6 @@ CapsuleCollider:
   m_Height: 2.18
   m_Direction: 1
   m_Center: {x: 0, y: -0.63, z: 0}
---- !u!95 &1562186253244718385
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525688550650289657}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3a476648d442a9a49a0d1d2a777d88fc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &581210620647987997
 GameObject:
   m_ObjectHideFlags: 0
@@ -5625,7 +5601,7 @@ GameObject:
   m_Component:
   - component: {fileID: -8679921383154817045}
   - component: {fileID: 65262195957262204}
-  - component: {fileID: 1448851143448187781}
+  - component: {fileID: 8692143985693920539}
   m_Layer: 0
   m_Name: CharacterAnims
   m_TagString: Player
@@ -5671,7 +5647,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1448851143448187781
+--- !u!114 &8692143985693920539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5680,7 +5656,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132149155446097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbc0d47324fe3844488dc1ca4e724cd3, type: 3}
+  m_Script: {fileID: 11500000, guid: dd887bc84ba82451f9fcc0243328aa83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 65262195957262204}

@@ -1,17 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Key : MonoBehaviour
+public class Key : TriggerEventsBehaviour
 {
-    public string doorToUnlockTag;//specifies tag of door to be unlocked (good for specifics)
+    public BoolData hasKey;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.instance.CollectKey(this); //this meaning this key
-            Destroy(gameObject);
+            hasKey.value = true;
+            triggerEnterEvent.Invoke();
+            gameObject.SetActive(false); // Hides the key after collection
+
         }
     }
 }

@@ -25,14 +25,14 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // wasd movement
-        var moveV = Input.GetAxis("Vertical");
+
         var moveH = Input.GetAxis("Horizontal");
-        var moveDirection =  new Vector3(moveH, 0f, moveV) * moveSpeed;
+        var moveDirection =  new Vector3(moveH, 0f, 0f) * moveSpeed;
 
         //if shift button is pressed, run at twice the speed move speed is set to
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            moveDirection = new Vector3(moveH, 0f, moveV) * moveSpeed * 2;
+            moveDirection = new Vector3(moveH, 0f, 0f) * moveSpeed * 2;
         }
 
         // Apply gravity
@@ -45,14 +45,6 @@ public class PlayerController : MonoBehaviour
             velocity.y = 0;
         }
 
-        if (!controller.isGrounded)
-        {
-            velocity.y += gravity * Time.deltaTime;;
-        }
-        else
-        {
-            velocity.y = 0f;
-        }
         // Jumping
         if (controller.isGrounded && Input.GetButtonUp("Jump"))
         {
@@ -67,19 +59,6 @@ public class PlayerController : MonoBehaviour
         if (moveDirection != Vector3.zero)
         {
             transform.forward = moveDirection;
-        }
-    }
-
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Door"))
-        {
-            Door door = other.GetComponent<Door>();
-            if (door != null)
-            {
-                door.Interact();
-            }
         }
     }
 }
