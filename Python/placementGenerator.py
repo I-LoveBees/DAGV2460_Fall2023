@@ -22,32 +22,3 @@ def placementGenerator(xmin, xmax, ymin, ymax, zmin, zmax, numdups):
 
 
 placementGenerator(-10, 10, 5, 0, -5, 5, 4)
-
-
-class PlacementGenUI():
-    def __init__(self):
-        self.window_name = 'Placement Generator'
-
-    def delete(self):
-        # check to see if exists, delete if true
-        if cmds.window('%sWindow' % (self.window_name), exists=True):
-            cmds.deleteUI('%sWindow' % (self.window_name))
-
-    def create(self):
-        self.delete()
-        # create window, assigned 'window' to the name 'calculate' and reassigned it to self.window_name
-        self.window_name = cmds.window('%sWindow' % (self.window_name),
-                                       title='%s Tool' % (self.window_name))
-
-        # define layout
-        cmds.columnLayout(parent=self.window_name)
-        cmds.rowLayout()
-        cmds.text()
-        cmds.rowLayout()
-        cmds.rowLayout()
-        cmds.rowLayout()
-        cmds.rowLayout()
-        cmds.button()
-
-        # create window itself
-        cmds.showWindow(self.window_name)
