@@ -6,18 +6,18 @@ class PlacementGenUI():
     window_name = '%sWindow' % ui_name
 
     def __init__(self):
+        self.y_col = None
+        self.x_col = None
+        self.z_col = None
         self.dup_num = None
         self.btn_cmd_gen = None
         self.dups = None
         self.z_max = None
         self.z_min = None
-        self.z_row = None
         self.y_max = None
         self.y_min = None
-        self.y_row = None
         self.x_min = None
         self.x_max = None
-        self.x_row = None
         self.m_col = None
 
     def delete(self):
@@ -33,20 +33,27 @@ class PlacementGenUI():
 
         # define layout
         self.m_col = cmds.columnLayout(parent=PlacementGenUI.window_name, adj=True, nch=8)
-        self.x_row = cmds.rowLayout(p=self.m_col, adj=True, numberOfChildren=4)
-        self.x_min = cmds.intSliderGrp(p=self.x_row, adj=True, field=True, label='X Min:')
-        self.x_max = cmds.intSliderGrp(p=self.x_row, adj=True, field=True, label='X Max:')
+        self.x_col = cmds.columnLayout(p=self.m_col, adj=True, numberOfChildren=4)
+        self.x_min = cmds.floatSliderGrp(p=self.x_col, adj=True, field=True, label='X Min:',
+                                         minValue=-10, maxValue=10, fieldMinValue=-100, fieldMaxValue=100, value=0)
+        self.x_max = cmds.floatSliderGrp(p=self.x_col, adj=True, field=True, label='X Max:',
+                                         minValue=-10, maxValue=10, fieldMinValue=-100, fieldMaxValue=100, value=0)
         cmds.separator(p=self.m_col, h=20, style='in')
-        self.y_row = cmds.rowLayout(p=self.m_col, adj=True, numberOfChildren=4)
-        self.y_min = cmds.intSliderGrp(p=self.y_row, adj=True, field=True, label='Y Min:')
-        self.y_max = cmds.intSliderGrp(p=self.y_row, adj=True, field=True, label='Y Max:')
+        self.y_col = cmds.columnLayout(p=self.m_col, adj=True, numberOfChildren=4)
+        self.y_min = cmds.floatSliderGrp(p=self.y_col, adj=True, field=True, label='Y Min:',
+                                         minValue=-10, maxValue=10, fieldMinValue=-100, fieldMaxValue=100, value=0)
+        self.y_max = cmds.floatSliderGrp(p=self.y_col, adj=True, field=True, label='Y Max:',
+                                         minValue=-10, maxValue=10, fieldMinValue=-100, fieldMaxValue=100, value=0)
         cmds.separator(p=self.m_col, h=20, style='in')
-        self.z_row = cmds.rowLayout(p=self.m_col, adj=True, numberOfChildren=4)
-        self.z_min = cmds.intSliderGrp(p=self.z_row, adj=True, field=True, label='Z Min:')
-        self.z_max = cmds.intSliderGrp(p=self.z_row, adj=True, field=True, label='Z Max:')
+        self.z_col = cmds.columnLayout(p=self.m_col, adj=True, numberOfChildren=4)
+        self.z_min = cmds.floatSliderGrp(p=self.z_col, adj=True, field=True, label='Z Min:',
+                                         minValue=-10, maxValue=10, fieldMinValue=-100, fieldMaxValue=100, value=0)
+        self.z_max = cmds.floatSliderGrp(p=self.z_col, adj=True, field=True, label='Z Max:',
+                                         minValue=-10, maxValue=10, fieldMinValue=-100, fieldMaxValue=100, value=0)
         cmds.separator(p=self.m_col, h=20, style='in')
-        self.dups = cmds.rowLayout(p=self.m_col, adj=True, numberOfChildren=3)
-        self.dup_num = cmds.intSliderGrp(p=self.dups, adj=True, field=True, label='Number of Duplicates:')
+        self.dups = cmds.columnLayout(p=self.m_col, adj=True, numberOfChildren=3)
+        self.dup_num = cmds.intSliderGrp(p=self.dups, adj=True, field=True, label='Number of Duplicates:',
+                                         minValue=1, maxValue=20, fieldMinValue=1, fieldMaxValue=100, value=1)
         cmds.separator(p=self.m_col, h=20, style='in')
         self.btn_cmd_gen = cmds.button(p=self.m_col, label='Generate Objects', c='')
 

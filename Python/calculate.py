@@ -14,3 +14,4 @@ def calculate(num_list, oper_type):
             operator = '*'
         elif oper_type == 'divide':
             operator = '/'
+

@@ -31,9 +31,11 @@ class CalculateUI():
         # define layout, assign a name and parent
         self.m_col = cmds.columnLayout(parent=CalculateUI.window_name, adj=True)
 
-        self.num_values = cmds.intSliderGrp(p=self.m_col, label='Number of Values', field=True, minValue=2, maxValue=10, value=2,
-                                            cw=[(1, 150), (2, 50)], cl3=['center', 'center', 'center'], dragCommand=lambda *args: self.update_num_fields())
-                                                                                                        # lambda *args: will save function into memory to be called later
+        self.num_values = cmds.intSliderGrp(p=self.m_col, label='Number of Values', field=True, minValue=2, maxValue=10,
+                                            value=2,
+                                            cw=[(1, 150), (2, 50)], cl3=['center', 'center', 'center'],
+                                            dragCommand=lambda *args: self.update_num_fields())
+        # lambda *args: will save function into memory to be called later
         cmds.separator(p=self.m_col, style='in', h=10)
 
         self.operation_type = cmds.optionMenu(p=self.m_col, label='Operation')
@@ -45,9 +47,9 @@ class CalculateUI():
         cmds.button(p=self.m_col, l='Calculate', commmand='')
 
         cmds.separator(p=self.m_col, style='in', h=10)
-        
+
         self.update_num_fields()
-        
+
         # call show window function
         self.show()
 
@@ -58,34 +60,40 @@ class CalculateUI():
     def update_num_fields(self):
         # queries the slider how many float fields the user wants
         num_values = cmds.intSliderGrp(self.num_values, q=True, value=True)
-        
+
         if cmds.rowColumnLayout('float_fields', exists=True):
             cmds.deleteUI('float_fields')
-            
+
         float_row = cmds.rowColumnLayout('float_fields', p=self.m_col, nc=5,
-                                        cat=[(1, 'both', 0), (2, 'both', 0), (3, 'both', 0)],
-                                        cw=[(1, 100), (2, 100), (3, 100), (4, 100), (5, 100)])
+                                         cat=[(1, 'both', 0), (2, 'both', 0), (3, 'both', 0)],
+                                         cw=[(1, 100), (2, 100), (3, 100), (4, 100), (5, 100)])
         self.num_field_list = []
         # loops and creates float fields
         for i in range(num_values):
-            field = cmds.floatField(p=float_row, value = 0, pre = 2)
-            self.num_field_list.append(field) # appends, or adds float fields to the list
+            field = cmds.floatField(p=float_row, value=0, pre=2)
+            self.num_field_list.append(field)  # appends, or adds float fields to the list
 
     def btn_cmd_calculate(self):
+        # bringing in calculator script into memory, so it can be used. Like an instance of a class, or object
         import calculate
+        # reloads any changes that was made to the file (useful for when actively developing and testing)
+        import importlib
+        importlib.reload(calculate)
 
         oper_type = cmds.optionMenu(self.operation_type, query=True, v=True)
 
-        # loops through float fields, queried values, and adds them to num_list
+        # loops through float fields, queries values, and adds them to num_list
         num_list = []
         for field in self.num_field_list:
             val = cmds.floatField(field, q=True, v=True)
             num_list.append(val)
 
-        # referencing the calculate file, the file types in parentheses do NOT have to match!! It's referencing the variables in this UI file
-        total, operator = calculate.calculate(num_list,oper_type)
-        num_list_str = (" %s " & operator).join(map(str, num_list))
+        # referencing the calculate file and calculate def inside said file, the file types in parentheses do NOT
+        # have to match!! It's referencing the variables in this UI file. [:] iterates through strings like a list.
+        total, operator = calculate.calculate(num_list[:], oper_type)
+        num_list_str = (" %s " % operator).join(map(str, num_list))
         cmds.confirmDialog(title='Total', messageAlign='center', message='%s is %s' % (num_list_str, total))
+
 
 # test to show window
 myTest = CalculateUI()
