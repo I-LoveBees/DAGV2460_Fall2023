@@ -80,3 +80,5 @@ Unity/ColorMatch Game/.idea/.idea.ColorMatch Game/.idea/
 Houdini/TreeHoudini/backup/
 
 Houdini/backup/
+
+*.meta
