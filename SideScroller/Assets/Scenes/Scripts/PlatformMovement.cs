@@ -5,22 +5,29 @@ using UnityEngine;
 public class PlatformMovement : MonoBehaviour
 {
     public float speed;
-    public float stopDistance;
-    private Transform target; //target is player (or whatever or enemies if you want minions?)
+    public Transform targetA; 
+    public Transform targetB;
+    private bool movingToB = true;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if(Vector2.Distance(transform.position, target.position) > stopDistance)
+        float step = speed * Time.deltaTime;
+        if (movingToB)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetB.position, step);
+            if(transform.position == targetB.position)
+            {
+                movingToB = false;
+            }
         }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, targetA.position, step);
+            if(transform.position == targetA.position)
+            {
+                movingToB = true;
+            }
+        }
+    
     }
 }
