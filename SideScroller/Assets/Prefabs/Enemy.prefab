@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3326227906166279957}
   - component: {fileID: 6653056505286512029}
   - component: {fileID: 4909021682055394683}
-  - component: {fileID: 6839387182302886928}
   - component: {fileID: 1837375808940660298}
   - component: {fileID: 3979337290918489509}
   m_Layer: 6
@@ -158,49 +157,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &6839387182302886928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7620504876178708219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0924698526bb1bd4284e67f1e390ac8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerEnterEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: e462d6c2bdd3f41d9be010d7025703ca, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  triggerEnterRepeatEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerEnterEndEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  triggerExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  delayTime: 0.5
-  canRepeat: 1
-  repeatTimes: 10
-  isPlayerAlive: 1
 --- !u!114 &1837375808940660298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,5 +220,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  stopDistance: 1
   player: {fileID: 0}

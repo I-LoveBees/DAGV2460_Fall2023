@@ -55,7 +55,7 @@ class PlacementGenUI():
         self.dup_num = cmds.intSliderGrp(p=self.dups, adj=True, field=True, label='Number of Duplicates:',
                                          minValue=1, maxValue=20, fieldMinValue=1, fieldMaxValue=100, value=1)
         cmds.separator(p=self.m_col, h=20, style='in')
-        self.btn_cmd_gen = cmds.button(p=self.m_col, label='Generate Objects', c='')
+        self.btn_cmd_gen = cmds.button(p=self.m_col, label='Generate Objects', c=self.btn_cmd_gen)
 
         self.show()
 
@@ -63,10 +63,20 @@ class PlacementGenUI():
         # create window itself
         cmds.showWindow(PlacementGenUI.window_name)
 
+    def btn_cmd_gen(self):
+        import placementGenerator
+        # get ranges from selection
+        xmin = cmds.floatSliderGrp(self.x_min, q=True, v=True)
+        xmax = cmds.floatSliderGrp(self.x_max, q=True, v=True)
+        ymin = cmds.floatSliderGrp(self.y_min, q=True, v=True)
+        ymax = cmds.floatSliderGrp(self.y_max, q=True, v=True)
+        zmin = cmds.floatSliderGrp(self.z_min, q=True, v=True)
+        zmax = cmds.floatSliderGrp(self.z_max, q=True, v=True)
+        numdups = cmds.intSliderGrp(self.dup_num, q=True, v=True)
+
+        # apply ranges to place gen code
+        placementGenerator.placementGenerator(xmin, xmax, ymin, ymax, zmin, zmax, numdups)
+
 
 myTest = PlacementGenUI()
 myTest.create()
-
-# def generate_objects(self):
-# need to get inputted values from other script
-# call the function itself as well

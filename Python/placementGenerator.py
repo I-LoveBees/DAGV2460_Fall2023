@@ -19,6 +19,3 @@ def placementGenerator(xmin, xmax, ymin, ymax, zmin, zmax, numdups):
 
             # Translate the duplicated object to the new position
             cmds.xform(dup, worldSpace=True, translation=(randX, randY, randZ))
-
-
-placementGenerator(-10, 10, 5, 0, -5, 5, 4)

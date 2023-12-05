@@ -7,7 +7,6 @@ public class EnemyBehavior : MonoBehaviour
     //me
    [Header("Enemy Info")]
     public float speed;
-    public float stopDistance;
     private Transform target;
    public PlayerController player;
     
@@ -22,10 +21,7 @@ public class EnemyBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, target.position) > stopDistance)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-        }
+        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }
 
 }
