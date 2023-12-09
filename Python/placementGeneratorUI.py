@@ -55,7 +55,7 @@ class PlacementGenUI():
         self.dup_num = cmds.intSliderGrp(p=self.dups, adj=True, field=True, label='Number of Duplicates:',
                                          minValue=1, maxValue=20, fieldMinValue=1, fieldMaxValue=100, value=1)
         cmds.separator(p=self.m_col, h=20, style='in')
-        self.btn_cmd_gen = cmds.button(p=self.m_col, label='Generate Objects', c=self.btn_cmd_gen)
+        self.btn_cmd_gen = cmds.button(p=self.m_col, label='Generate Objects', c=lambda a: self.btn_cmd_gen())
 
         self.show()
 
