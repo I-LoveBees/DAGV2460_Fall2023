@@ -55,7 +55,7 @@ class PlacementGenUI():
         self.dup_num = cmds.intSliderGrp(p=self.dups, adj=True, field=True, label='Number of Duplicates:',
                                          minValue=1, maxValue=20, fieldMinValue=1, fieldMaxValue=100, value=1)
         cmds.separator(p=self.m_col, h=20, style='in')
-        self.btn_cmd_gen = cmds.button(p=self.m_col, label='Generate Objects', c=lambda a: self.btn_cmd_gen())
+        self.btn_cmd_gen = cmds.button(p=self.m_col, label='Generate Objects', c=lambda a: self.btn_gen())
 
         self.show()
 
@@ -63,7 +63,7 @@ class PlacementGenUI():
         # create window itself
         cmds.showWindow(PlacementGenUI.window_name)
 
-    def btn_cmd_gen(self):
+    def btn_gen(self):
         import placementGenerator
         # get ranges from selection
         xmin = cmds.floatSliderGrp(self.x_min, q=True, v=True)
@@ -77,6 +77,3 @@ class PlacementGenUI():
         # apply ranges to place gen code
         placementGenerator.placementGenerator(xmin, xmax, ymin, ymax, zmin, zmax, numdups)
 
-
-myTest = PlacementGenUI()
-myTest.create()
